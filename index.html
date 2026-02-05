@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>R34L-001 | CSV Validator</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="wrap">
+      <header class="header">
+        <h1>CSV Validator</h1>
+        <p class="muted">Validates well formed CSV, consistent columns, plus optional type checks. Runs locally in your browser.</p>
+      </header>
+
+      <section class="card">
+        <div class="row">
+          <label class="file">
+            <input id="file" type="file" accept=".csv,text/csv" />
+            <span>Select CSV</span>
+          </label>
+
+          <div class="controls">
+            <label class="inline">
+              <span>Delimiter</span>
+              <select id="delimiter">
+                <option value="auto" selected>Auto detect</option>
+                <option value=",">Comma</option>
+                <option value=";">Semicolon</option>
+                <option value="\t">Tab</option>
+                <option value="|">Pipe</option>
+              </select>
+            </label>
+
+            <label class="inline">
+              <span>Header row</span>
+              <input id="hasHeader" type="checkbox" checked />
+            </label>
+          </div>
+        </div>
+
+        <div class="row">
+          <button id="validate" class="btn" disabled>Validate</button>
+          <button id="downloadErrors" class="btn secondary" disabled>Download errors CSV</button>
+          <button id="clear" class="btn ghost" disabled>Clear</button>
+        </div>
+
+        <p id="rawLineNote" class="muted small" hidden>
+          Note: If your CSV has line breaks inside quoted fields, the error report <code>raw_line</code> may not perfectly match the logical row.
+        </p>
+
+        <div id="status" class="status muted">Choose a CSV to begin.</div>
+      </section>
+
+      <section class="card">
+        <h2>Summary</h2>
+        <div id="summary" class="summary muted">No file loaded.</div>
+      </section>
+
+      <section class="card">
+        <h2>Checks (Free: up to 10, rows: 100)</h2>
+        <div class="row">
+          <button id="addCheck" class="btn" disabled>Add check</button>
+          <div class="muted">Validates first 100 data rows.</div>
+        </div>
+        <div id="checks" class="checks">
+          <div class="muted small">Upload a CSV and click Validate to enable checks.</div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Issues</h2>
+        <div class="tableWrap">
+          <table class="table" aria-label="CSV issues">
+            <thead>
+              <tr>
+                <th>Line</th>
+                <th>Type</th>
+                <th>Details</th>
+              </tr>
+            </thead>
+            <tbody id="issuesBody">
+              <tr><td colspan="3" class="muted">No issues yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Preview</h2>
+        <div class="tableWrap">
+          <table class="table" aria-label="CSV preview">
+            <thead id="previewHead"></thead>
+            <tbody id="previewBody"></tbody>
+          </table>
+        </div>
+        <p class="muted">Preview shows the first 25 parsed rows.</p>
+      </section>
+
+      <footer class="footer muted">
+        <span>R34L-001</span>
+        <span id="build"></span>
+      </footer>
+    </main>
+
+    <script src="./app.js" type="module"></script>
+  </body>
+</html>
